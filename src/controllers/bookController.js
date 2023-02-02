@@ -66,8 +66,8 @@ const createBook = async function (req, res) {
         { return res.status(400).send({ status: false, message: "Please provide the ISBN in string" })}
 
         ISBN = bookData.ISBN = ISBN.trim()
-        if (!valid.isbnValid(ISBN))
-            return res.status(400).send({ status: false, message: "Please provide valid ISBN, e.g: 978-1861978709 " })
+        // if (!valid.isbnValid(ISBN))
+        //     return res.status(400).send({ status: false, message: "Please provide valid ISBN, e.g: 978-1861978709 " })
 
         const findISBN = await bookModel.findOne({ ISBN: ISBN })
         if (findISBN)
@@ -100,10 +100,10 @@ const createBook = async function (req, res) {
             }
         releasedAt = bookData.releasedAt = releasedAt.trim()
 
-        if (!valid.dateReg(releasedAt)) {
-            return res.status(400).send({ status: false, message: "Please provide valid date e.g. YYYY-MM-DD" })
+        // if (!valid.dateReg(releasedAt)) {
+        //     return res.status(400).send({ status: false, message: "Please provide valid date e.g. YYYY-MM-DD" })
 
-        }
+        // }
 //========================================================================
 
         const createdBook = await bookModel.create(bookData)
@@ -243,8 +243,8 @@ const updateBook = async function (req, res) {
 
             ISBN = bookBody.ISBN = ISBN.trim()
 
-            if (!valid.isbnValid(ISBN))
-                return res.status(400).send({ status: false, message: "Please provide valid ISBN, e.g: 978-1861978709 " })
+            // if (!valid.isbnValid(ISBN))
+            //     return res.status(400).send({ status: false, message: "Please provide valid ISBN, e.g: 978-1861978709 " })
 
 
             const bookISBN = await bookModel.findOne({ ISBN: ISBN })

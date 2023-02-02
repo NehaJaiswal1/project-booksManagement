@@ -53,9 +53,9 @@ const reviewCreate = async function (req, res) {
         }
             reviewedAt = bodyData.reviewedAt = reviewedAt.trim()
 
-        if (!valid.dateReg(reviewedAt)) {
-            return res.status(400).send({ status: false, message: "Please provide valid date e.g. YYYY-MM-DD" })
-        }
+        // if (!valid.dateReg(reviewedAt)) {
+        //     return res.status(400).send({ status: false, message: "Please provide valid date e.g. YYYY-MM-DD" })
+        // }
 //=======================================================
 if (!rating) {
     return res.status(400).send({ status: false, messsage: "Please provide rating" })

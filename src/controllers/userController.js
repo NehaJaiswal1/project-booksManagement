@@ -48,11 +48,11 @@ const userRegister = async function (req, res) {
         }
         name = userData.name = name.trim()
 
-        if(!valid.textReg(name)){
-            return res
-                .status(400)
-                .send({ status: false, message: "enter valid name" });
-        }
+        // if(!valid.textReg(name)){
+        //     return res
+        //         .status(400)
+        //         .send({ status: false, message: "enter valid name" });
+        // }
 
     //=============================================phone======
 
@@ -68,11 +68,11 @@ const userRegister = async function (req, res) {
         }
         phone = userData.phone = phone.trim()
 
-        if (!valid.phoneValid(phone)) {
-            return res
-                .status(400)
-                .send({ status: false, message: "enter valid phone number" });
-        }
+        // if (!valid.phoneValid(phone)) {
+        //     return res
+        //         .status(400)
+        //         .send({ status: false, message: "enter valid phone number" });
+        // }
         const phoneExist = await userModel.findOne({ phone: phone });
         if (phoneExist) {
             return res
@@ -95,11 +95,11 @@ if ( typeof(email) != "string") {
 
         email = userData.email = email.trim()
 
-        if (!valid.emailValid(email)) {
-            return res
-                .status(400)
-                .send({ status: false, message: "enter valid email id" });
-        }
+        // if (!valid.emailValid(email)) {
+        //     return res
+        //         .status(400)
+        //         .send({ status: false, message: "enter valid email id" });
+        // }
         const emailExist = await userModel.findOne({ email: email });
         if (emailExist) {
             return res
@@ -121,11 +121,12 @@ if ( typeof(email) != "string") {
         }
         password = userData.password = password.trim()
 
-        if (!valid.passwordValid(password)) {
-            return res
-                .status(400)
-                .send({ status: false, message: "Password should contain atleast 1 lowercase, 1 uppercase, 1 numeric ,1 special character, range between 8-12" });
-        }
+       
+        // if (!valid.passwordValid(password)) {
+        //     return res
+        //         .status(400)
+        //         .send({ status: false, message: "Password should contain atleast 1 lowercase, 1 uppercase, 1 numeric ,1 special character, range between 8-12" });
+        // }
 //=========================================================================================
 
         if(address){
@@ -168,11 +169,11 @@ if ( typeof(email) != "string") {
             }
             address.pincode = userData.address.pincode = address.pincode.trim()
 
-            if(!valid.pinReg(address.pincode)){
-                return res
-                    .status(400)
-                    .send({ status: false, message: "Please provide valid pincode in following format, e.g: ** or * *" })
-            }
+            // if(!valid.pinReg(address.pincode)){
+            //     return res
+            //         .status(400)
+            //         .send({ status: false, message: "Please provide valid pincode in following format, e.g: ** or * *" })
+            // }
         }
         //=================================================
         const registeredData = await userModel.create(userData);
@@ -202,11 +203,11 @@ const userLogin = async function(req,res){
             return res.status(400).send({status: false, message: "Please provide email-id in string"})
         }
         email = data.email = email.trim()
-        if (!valid.emailValid(email)) {
-            return res
-              .status(400)
-              .send({ status: false, message: "please provide valid email id" });
-          }
+        // if (!valid.emailValid(email)) {
+        //     return res
+        //       .status(400)
+        //       .send({ status: false, message: "please provide valid email id" });
+        //   }
           //=========================password
         if(!password ){
             return res.status(400).send({status: false, message: "Please provide password"})
@@ -215,11 +216,11 @@ const userLogin = async function(req,res){
 
         password = data.password = password.trim()
 
-        if (!valid.passwordValid(password)) {
-            return res
-              .status(400)
-              .send({ status: false, message: "Please provide valid password" });
-          }
+        // if (!valid.passwordValid(password)) {
+        //     return res
+        //       .status(400)
+        //       .send({ status: false, message: "Please provide valid password" });
+        //   }
         //=========================================== finding the user data
         const userDetail = await userModel.findOne({email:email, password: password})
         if(!userDetail){
