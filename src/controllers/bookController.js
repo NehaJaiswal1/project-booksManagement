@@ -100,10 +100,10 @@ const createBook = async function (req, res) {
             }
         releasedAt = bookData.releasedAt = releasedAt.trim()
 
-        // if (!valid.dateReg(releasedAt)) {
-        //     return res.status(400).send({ status: false, message: "Please provide valid date e.g. YYYY-MM-DD" })
+        if (!valid.dateReg(releasedAt)) {
+            return res.status(400).send({ status: false, message: "Please provide valid date e.g. YYYY-MM-DD" })
 
-        // }
+        }
 //========================================================================
 
         const createdBook = await bookModel.create(bookData)
@@ -171,6 +171,10 @@ const getBookParams = async function (req, res) {
         let data = await bookModel.findById(bookId)
 
         if (!data) { return res.status(404).send({ status: false, message: "Book not found" }) }
+        if (data == "")
+      {return res
+        .status(400)
+        .send({ status: false, message: "Please Enter data value" })}
         if (data.isDeleted === true) { return res.status(404).send({ status: false, message: "Book is already deleted" }) }
 
         const bookreviews = await reviewModel.find({ bookId: bookId, isDeleted: false }).select({ isDeleted: 0 })
@@ -238,19 +242,20 @@ const updateBook = async function (req, res) {
   
             
         if (ISBN) {
-            if (typeof (ISBN) != "string")
-                return res.status(400).send({ status: false, message: "Please provide the ISBN in string" })
-
-            ISBN = bookBody.ISBN = ISBN.trim()
-
+            
+            if( typeof (ISBN) != "string")
+    
+            { return res.status(400).send({ status: false, message: "Please provide the ISBN in string" })}
+    
+            ISBN = bookData.ISBN = ISBN.trim()
             // if (!valid.isbnValid(ISBN))
             //     return res.status(400).send({ status: false, message: "Please provide valid ISBN, e.g: 978-1861978709 " })
-
-
-            const bookISBN = await bookModel.findOne({ ISBN: ISBN })
-            if (bookISBN)
-                return res.status(400).send({ status: false, message: "Book ISBN  already exists" })
-
+    
+            const findISBN = await bookModel.findOne({ ISBN: ISBN })
+            if (findISBN)
+                return res.status(400).send({ status: false, message: "This ISBN number already exists" })
+    
+    
         }
        //==============================================================
 

@@ -7,7 +7,7 @@ const authentication = function (req, res, next) {
     try {
         const token = req.headers["x-api-key"];
         if (!token) {
-            return res.status(400).send({ status: false, message: "Header token is required !" });
+            return res.status(401).send({ status: false, message: "Header token is required !" });
         }
         jwt.verify(token, 'secretKeyProject4', function (err, decoded) {
             if (err) {
@@ -62,7 +62,7 @@ const createBookAuth = async function (req, res, next) {
             return res.status(400).send({ status: false, message: "Please provide the userID in string" })
         }
         
-        userId = req.body.userId = userId.trim()
+        // userId = req.body.userId = userId.trim()
 
         if (!mongoose.isValidObjectId(userId))
             return res.status(400).send({ status: false, message: "Please provide the valid userID" })

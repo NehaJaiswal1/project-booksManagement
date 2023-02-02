@@ -1,7 +1,10 @@
-const valid = require("../validation/validation")
+// const valid = require("../validation/validation")
 const userModel = require("../models/userModel");
 const jwt = require('jsonwebtoken')
 
+function validEmail(email) {
+    return email.length > 5 && email.indexOf('@')>0;
+ }
 
 const userRegister = async function (req, res) {
     try {
@@ -14,19 +17,21 @@ const userRegister = async function (req, res) {
                 .status(400)
                 .send({ status: false, message: "Please provide some data to create user" });
         }
-//====================================title ========
         if (!title ) {
             return res
                 .status(400)
                 .send({ status: false, message: "please provide title" });
         }
+        if (title == "")
+      {return res
+        .status(400)
+        .send({ status: false, message: "Please Enter title value" });}
+
         if ( typeof (title) != "string") {
             return res
                 .status(400)
                 .send({ status: false, message: "please provide title in string" });
         }
-
-        title = userData.title = title.trim()
 
         if (!["Mr", "Mrs", "Miss"].includes(title)) {
             return res
@@ -40,13 +45,19 @@ const userRegister = async function (req, res) {
             return res
                 .status(400)
                 .send({ status: false, message: "Please provide  name " });
+
         }
+        if (name == "")
+        {return res
+          .status(400)
+          .send({ status: false, message: "Please Enter name value" });}
+
         if (typeof (name) != "string") {
             return res
                 .status(400)
                 .send({ status: false, message: "Please provide valid name in string" });
         }
-        name = userData.name = name.trim()
+        // name = userData.name = name.trim()
 
         // if(!valid.textReg(name)){
         //     return res
@@ -61,12 +72,17 @@ const userRegister = async function (req, res) {
                 .status(400)
                 .send({ status: false, message: "Please provide phone" });
         }
+        if (phone == ""){
+        return res
+          .status(400)
+          .send({ status: false, message: "Please Enter name value" })}
+          
         if ( typeof (phone) != "string") {
             return res
                 .status(400)
                 .send({ status: false, message: "Please provide valid phone in string" });
         }
-        phone = userData.phone = phone.trim()
+        // phone = userData.phone = phone.trim()
 
         // if (!valid.phoneValid(phone)) {
         //     return res
@@ -87,13 +103,24 @@ const userRegister = async function (req, res) {
                 .status(400)
                 .send({ status: false, message: "provide email"});
         }
+        if (email == "")
+        return res
+          .status(400)
+          .send({ status: false, message: "Please Enter email value" });
+          
 if ( typeof(email) != "string") {
             return res
                 .status(400)
                 .send({ status: false, message: "email must be in string"});
         }
 
-        email = userData.email = email.trim()
+        
+         if(!validEmail(email)){
+            return res
+                .status(400)
+                .send({ status: false, message: "enter valid email"});
+         }
+        // email = userData.email = email.trim()
 
         // if (!valid.emailValid(email)) {
         //     return res
@@ -112,14 +139,19 @@ if ( typeof(email) != "string") {
         if (!password ) {
             return res
                 .status(400)
-                .send({ status: false, message: "password Please" });
+                .send({ status: false, message: "password is necessary" });
         }
+        if (password == "")
+        {return res
+          .status(400)
+          .send({ status: false, message: "Please Enter name value" });}
+          
         if (typeof(password) != "string") {
             return res
                 .status(400)
                 .send({ status: false, message: "password is must be in string" });
         }
-        password = userData.password = password.trim()
+        // password = userData.password = password.trim()
 
        
         // if (!valid.passwordValid(password)) {
@@ -154,7 +186,7 @@ if ( typeof(email) != "string") {
                     .status(400)
                     .send({ status: false, message: "Please provide city name in string" });
             }
-            address.city = userData.address.city = address.city.trim()
+            // address.city = userData.address.city = address.city.trim()
 
 //================================================
             if (!address.pincode ) {
@@ -167,7 +199,7 @@ if ( typeof(email) != "string") {
                     .status(400)
                     .send({ status: false, message: "Please provide pincode in string" });
             }
-            address.pincode = userData.address.pincode = address.pincode.trim()
+            // address.pincode = userData.address.pincode = address.pincode.trim()
 
             // if(!valid.pinReg(address.pincode)){
             //     return res
@@ -199,22 +231,18 @@ const userLogin = async function(req,res){
         if(!email ){
             return res.status(400).send({status: false, message: "Please provide email-id "})
         }
+        
         if( typeof(email) != "string"){
             return res.status(400).send({status: false, message: "Please provide email-id in string"})
         }
-        email = data.email = email.trim()
-        // if (!valid.emailValid(email)) {
-        //     return res
-        //       .status(400)
-        //       .send({ status: false, message: "please provide valid email id" });
-        //   }
-          //=========================password
+       
         if(!password ){
             return res.status(400).send({status: false, message: "Please provide password"})
         }
+      
         if(typeof(password) != "string"){return res.status(400).send({status: false, message: "Please provide password in string"})}
 
-        password = data.password = password.trim()
+        // password = data.password = password.trim()
 
         // if (!valid.passwordValid(password)) {
         //     return res

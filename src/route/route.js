@@ -95,8 +95,8 @@ router.delete('/books/:bookId/review/:reviewId', reviewController.reviewDeletion
 
 
 
-router.all("/*", function(req,res){
-    res.status(400).send({status : false, message:"invalid http request"})
-})
+// router.all("/*", function(req,res){
+//     res.status(400).send({status : false, message:"invalid http request"})
+// })
 
 module.exports = router

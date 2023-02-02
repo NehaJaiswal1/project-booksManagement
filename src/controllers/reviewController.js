@@ -33,7 +33,11 @@ const reviewCreate = async function (req, res) {
         // if (!checkBookIdbyBody) {
         //     return res.status(404).send({ status: false, message: "book id not found" })
         // }
-
+        // if (reviewedBy == ""){
+        //     return res
+        //       .status(400)
+        //       .send({ status: false, message: "Please Enter reviewed value" })}
+              
         if (!reviewedBy) {
             req.body.reviewedBy = "Guest"
         }
